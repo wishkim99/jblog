@@ -29,8 +29,7 @@ public class UserRepository {
 		return sqlSession.selectOne("user.findById", id);
 	}
 
-	public UserVo findByIdAndPassword(String id, String password){ //aop는 스탑워치 적용할 경우 코드 변경 안해도 됨! 그러나 지금은 함
-
+	public UserVo findByIdAndPassword(String id, String password){ 
 		Map<String, String> map = new HashMap<>();
 		map.put("i", id);
 		map.put("p", password);
@@ -41,12 +40,6 @@ public class UserRepository {
 	return sqlSession.selectOne("user.findByIdAndPassword", map);
 	}
 	
-	public boolean insertBlog(UserVo userVo, String logo, String title) {
-		Map<String, String> map = new HashMap<>();
-		map.put("id", userVo.getId());
-		map.put("logo", logo);
-		map.put("title", title);
-		return 1==sqlSession.insert("user.insertblog", map);
-	}
+
 	
 }

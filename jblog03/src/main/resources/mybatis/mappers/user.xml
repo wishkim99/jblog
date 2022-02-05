@@ -10,7 +10,7 @@
 
 	<select id="findByIdAndPassword" parameterType="map" resultType="uservo">
 		<![CDATA[
-		select id, name from user where id=#{i } and password=#{p }
+		select id, name, password from user where id=#{i } and password=#{p }
 		]]>
 	</select>
 	
@@ -22,32 +22,21 @@
 		]]>
 	</insert>
 	
-	<update id="update" parameterType="uservo">
-		<choose>
-			<when test="password == null or '' == password">
-				<![CDATA[
-				update user set name=#{name }, gender=#{gender } where no=#{no }
-				]]>	
-			</when>
-			<otherwise>
-				<![CDATA[
-				update user set name=#{name }, gender=#{gender }, password=#{password } where no=#{no }
-				]]>	
-			</otherwise>
-		</choose>
-	</update>
-	
-	<update id="update2" parameterType="uservo">
+		<insert id="insertblog" parameterType="map">
 		<![CDATA[
-		update user
-		     set name=#{name },
-		          gender=#{gender }
+		insert 
+		   into blog
+		values ( #{id },#{title }, #{logo })
 		]]>
-		<if test="password != null and '' !=password">
-				 ,password=#{password }	
-		</if>		          
+	</insert>
+	
+	<insert id="insertcategory" parameterType="map">
 		<![CDATA[
-		 where no=#{no }
-		]]>	
-	</update>			
+		insert 
+		   into blog
+		values (null, #{name },#{description }, #{blog_id})
+		]]>
+	</insert>
+	
+			
 </mapper>

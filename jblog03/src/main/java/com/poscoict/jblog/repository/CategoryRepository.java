@@ -1,11 +1,13 @@
 package com.poscoict.jblog.repository;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.poscoict.jblog.vo.CategoryVo;
-import com.poscoict.jblog.vo.UserVo;
 
 @Repository
 public class CategoryRepository {
@@ -13,14 +15,15 @@ public class CategoryRepository {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public boolean insert(CategoryVo categoryVo) {
-		int count = sqlSession.insert("category.insert", categoryVo);
+	public boolean insert(String id) {
+		Map<String, String> map = new HashMap<>();
+		map.put("name", "미분류");
+		map.put("description", "기본 카테코리");
+		map.put("blog_id",id);
+		int count = sqlSession.insert("category.insert", map);
 		return count == 1;
 		
 	}
 
-	public boolean insert(UserVo userVo) {
-		int count = sqlSession.insert("uservo.insert", userVo);
-		return count == 1;	
-	}
+	
 }

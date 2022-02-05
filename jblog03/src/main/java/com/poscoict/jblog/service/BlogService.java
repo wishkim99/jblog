@@ -5,21 +5,16 @@ import org.springframework.stereotype.Service;
 
 import com.poscoict.jblog.repository.BlogRepository;
 import com.poscoict.jblog.vo.BlogVo;
-import com.poscoict.jblog.vo.UserVo;
 
 @Service
 public class BlogService {
 	@Autowired
 	private BlogRepository blogRepository;
 
-	public void join(BlogVo blogVo) {
-		blogRepository.insert(blogVo);
+	public void join(String id) { //회원가입시 blog에도 id값 받아옴
+		blogRepository.insert(id);
 	}
 
-	public void insert(UserVo userVo) {
-		blogRepository.insert(userVo);
-		
-	}
 
 	
 }
