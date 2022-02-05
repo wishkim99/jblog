@@ -25,5 +25,9 @@ public class CategoryRepository {
 		
 	}
 
+	public CategoryVo findAll() {
+		return sqlSession.selectOne("category.findAll");
+	}
+
 	
 }

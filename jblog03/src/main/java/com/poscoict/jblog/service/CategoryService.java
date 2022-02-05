@@ -16,6 +16,10 @@ public class CategoryService {
 		categoryRepository.insert(id);
 	}
 
+	public CategoryVo getCategory() {
+		return categoryRepository.findAll();
+	}
+
 //	public void insert(UserVo userVo) {
 //		categoryRepository.insert(userVo);
 //	}
