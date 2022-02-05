@@ -3,30 +3,40 @@ package com.poscoict.jblog.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.poscoict.jblog.service.BlogService;
+import com.poscoict.jblog.vo.BlogVo;
+
 
 @Controller
 @RequestMapping("/{user_id}")
 public class BlogController {
-//
-//	@Autowired
-//	BlogService blogService;
+	@Autowired
+	private ServletContext servletContext;
+	
+	@Autowired
+	private BlogService blogService;
 	
 	@RequestMapping("")
 	//jsp에서 여기로 보내서 kwd 실행-> 받아서 BoardService로 이동
-	public String index(@RequestParam(value = "user_id", required = true, defaultValue = "") String userId, Model model) {
+	public String index( @RequestParam(value = "user_id", required = true, defaultValue = "") String userId, Model model) {
 //		List<BlogVo> list = blogService.getMessageList(kwd);
 //		model.addAttribute("list", list);
-		System.out.println("~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!");
+		//ServletContext 객체는 모든 서블릿이 공유하는 객체
+		BlogVo blogVo=blogService.getBlog();
+		model.addAttribute("blogVo", blogVo);
+		System.out.println("================================"+blogVo);
 		return "blog/blog-main";
 	}
 

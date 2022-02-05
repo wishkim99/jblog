@@ -15,6 +15,11 @@ public class BlogService {
 		blogRepository.insert(id);
 	}
 
+	public BlogVo getBlog() {
+		// TODO Auto-generated method stub
+		return blogRepository.findAll();
+	}
+
 
 	
 }

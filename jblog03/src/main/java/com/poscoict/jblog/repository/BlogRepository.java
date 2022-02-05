@@ -36,5 +36,11 @@ public class BlogRepository {
 		return 1==sqlSession.insert("blog.insert", map);
 	}
 
+
+	public BlogVo findAll() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("blog.findAll");
+	}
+
 	
 }
