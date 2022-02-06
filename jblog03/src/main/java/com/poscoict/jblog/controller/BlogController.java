@@ -51,9 +51,7 @@ public class BlogController {
 	@RequestMapping(value="/admin/basic", method=RequestMethod.GET)
 	//jsp에서 여기로 보내서 user_id 실행-> 받아서 BlogService로 이동
 		public String basic( @PathVariable("user_id") String user_id, Model model) {
-			//ServletContext 객체는 모든 서블릿이 공유하는 객체
 			BlogVo blogVo=blogService.getBlog(user_id);
-
 			model.addAttribute("blogVo", blogVo);
 			
 			CategoryVo categoryVo=categoryService.getCategory(user_id);
@@ -80,7 +78,9 @@ public class BlogController {
 	@RequestMapping(value="/admin/category")
 	//jsp에서 여기로 보내서 kwd 실행-> 받아서 BoardService로 이동
 	public String category(@PathVariable("user_id") String user_id, Model model) {
-		//ServletContext 객체는 모든 서블릿이 공유하는 객체
+		BlogVo blogVo=blogService.getBlog(user_id);
+		model.addAttribute("blogVo", blogVo); //jsp에서 사용하기 위함
+		
 		List<CategoryVo> list = categoryService.getCategoryList();
 		model.addAttribute("list", list);
 		return "blog/blog-admin-category";

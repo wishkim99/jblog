@@ -47,23 +47,13 @@
 					<tr>
 					<c:set var="count" value="${fn:length(list) }"/>
 					<c:forEach items="${list }" var="vo" varStatus="status">
-						<li>
-							<table>
 								<tr>
 									<td>[${count-status.index }]</td>
 									<td>${vo.name }</td>
 									<td>${vo.description }</td>
 									<td>포스트수</td>
 									<td><a href="${pageContext.request.contextPath }/category/delete/${vo.no }">삭제</a></td>
-								</tr>
-								<tr>
-									<td colspan=4>
-										${fn:replace(vo.message, newline, "<br/>") }	
-									</td>
-								</tr>
-							</table>
-							<br>
-						</li>
+								</tr>				
 					</c:forEach>
 					</tr>					  
 				</table>
