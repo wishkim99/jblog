@@ -20,4 +20,19 @@
 		]]>
 	</insert>
 	
+	<update id="update" parameterType="blogvo"> 
+		<choose>
+			<when test="logo == null or '' == logo">
+				<![CDATA[
+					update blog set title=#{title} where user_id=#{user_id}
+				]]>
+			</when>
+			<otherwise>
+				<![CDATA[
+					update blog set title=#{title}, logo=#{logo} where user_id=#{user_id}
+				]]>
+			</otherwise>
+		</choose>
+	</update>
+	
 </mapper>

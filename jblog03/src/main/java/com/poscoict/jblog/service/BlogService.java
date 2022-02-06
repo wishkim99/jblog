@@ -20,6 +20,10 @@ public class BlogService {
 		return blogRepository.findAll();
 	}
 
+	public boolean update(BlogVo blogVo) {
+		return blogRepository.update(blogVo);
+	}
+
 
 	
 }

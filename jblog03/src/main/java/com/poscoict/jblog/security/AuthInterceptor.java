@@ -1,16 +1,24 @@
 package com.poscoict.jblog.security;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.poscoict.jblog.service.BlogService;
+import com.poscoict.jblog.vo.BlogVo;
 import com.poscoict.jblog.vo.UserVo;
 
 
 public class AuthInterceptor extends HandlerInterceptorAdapter {
+
+	@Autowired
+	private BlogService blogService;
+
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -55,31 +63,21 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 			response.sendRedirect(request.getContextPath()+"/user/login");
 			return false;
 		}
-		
-		/*강사님 코드
-		//7.권한(Authorization) 체크를 위해서 @Auth의 role 가져오기("USER","ADMIN")
-		String role=auth.role();
-		
-		//8. @Auth의 role이 "USER"인 경우, authUser의 role은 상관이 없다.
-		if("User".equals(role)) {
+
+		ServletContext sc = request.getServletContext();
+		BlogVo blogVo = (BlogVo) sc.getAttribute("blogVo"); // blogVo이름의 객체를 불러옴
+		blogVo = blogService.getBlog(); 
+		if(authUser.getId().equals(blogVo.getUser_id())){
+			System.out.println("dkdkdkdkdkdkdkdkkdkkdd"+blogVo.getUser_id());
 			return true;
 		}
-		
-		//9. @Auth의 role이 "ADMIN"인 경우, authUser은 "ADMIN"이어야 한다.
-		if("ADMIN".equals(authUser.getRole())==false) {
-			response.sendRedirect(request.getContextPath());
+				
+		if(authUser.getId().equals(blogVo.getUser_id())==false) {
+			response.sendRedirect(request.getContextPath()+"/user/login");
 			return false;
-		}
-		
-		//10. 옳은 관리자
-		//@Auth의 role: "ADMIN"
-		//authUser의 role:"ADMIN"
-		 return true;
-		*/
-		
+		}	// 6. 인증 확인!!!->controller의 handler(method)실행
+	
 		//6. 인증 확인!!!->controller의 handler(method)실행
 		return true;
 	}
-
-	
 }

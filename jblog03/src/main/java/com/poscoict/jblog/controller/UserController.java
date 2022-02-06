@@ -64,25 +64,7 @@ public class UserController {
 		session.invalidate(); //sessionId를 새걸로 바꿔줌
 		return "redirect:/";
 	}
-	
-//	@Auth
-//	@RequestMapping(value="/update", method=RequestMethod.GET)
-//	public String update(@AuthUser UserVo authUser, Model model) {
-//		Long userNo = authUser.getNo();
-//		UserVo userVo = userService.getUser(userNo);
-//		model.addAttribute("userVo", userVo);
-//		
-//		return "user/update";
-//	}
-//	
-//	@Auth
-//	@RequestMapping(value="/update", method=RequestMethod.POST)
-//	public String update(@AuthUser UserVo authUser, UserVo userVo) {
-//		userVo.setNo(authUser.getNo());
-//		userService.updateUser(userVo);
-//		
-//		return "redirect:/user/update";
-//	}
+
 
 	
 	

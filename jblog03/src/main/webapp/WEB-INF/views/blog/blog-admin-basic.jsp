@@ -12,7 +12,7 @@
 <body>
 	<div id="container">
 		<div id="header">
-			<h1>${blogvo.title}</h1>
+			<h1>${blogVo.title}</h1>
 			<ul>
 				<c:choose>
 				<c:when test="${empty authUser }">
@@ -20,9 +20,7 @@
 				</c:when>
 				<c:otherwise>
 					<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
-						<c:if test="${authUser.id==blogvo.user_id }">
-							<li><a href="${pageContext.request.contextPath}/${blogvo.user_id}/admin/basic">블로그 관리</a></li>
-						</c:if>
+					<li><a href="${pageContext.request.contextPath}/${blogVo.user_id}">블로그 관리</a></li>
 				</c:otherwise>
 			</c:choose>
 			</ul>
@@ -31,22 +29,22 @@
 			<div id="content" class="full-screen">
 				<ul class="admin-menu">
 					<li class="selected">기본설정</li>
-					<li><a href="">카테고리</a></li>
-					<li><a href="">글작성</a></li>
+					<li><a href="${pageContext.request.contextPath}/${blogVo.user_id}/admin/category">카테고리</a></li>
+					<li><a href="${pageContext.request.contextPath}/${blogVo.user_id}/admin/write">글작성</a></li>
 				</ul>
-				<form action="" method="post">
+				<form method="post" action="${pageContext.request.contextPath }/${blogVo.user_id}/admin/basic" enctype="multipart/form-data">
 	 		      	<table class="admin-config">
 			      		<tr>
 			      			<td class="t">블로그 제목</td>
-			      			<td><input type="text" size="40" name="title"></td>
+			      			<td><input type="text" size="40" name="title" value="${blogVo.title}"></td>
 			      		</tr>
 			      		<tr>
 			      			<td class="t">로고이미지</td>
-			      			<td><img src="${pageContext.request.contextPath}/assets/images/spring-logo.jpg"></td>      			
+			      			<td><img id="logo" src="${pageContext.request.contextPath}${blogVo.logo}">		
 			      		</tr>      		
 			      		<tr>
 			      			<td class="t">&nbsp;</td>
-			      			<td><input type="file" name="logo-file"></td>      			
+			      			<td><input type="file" name="upload-file"></td>      			
 			      		</tr>           		
 			      		<tr>
 			      			<td class="t">&nbsp;</td>
@@ -58,7 +56,7 @@
 		</div>
 		<div id="footer">
 			<p>
-				<strong>Spring 이야기</strong> is powered by JBlog (c)2016
+				<strong>${blogVo.title}</strong> is powered by JBlog (c)2016
 			</p>
 		</div>
 	</div>

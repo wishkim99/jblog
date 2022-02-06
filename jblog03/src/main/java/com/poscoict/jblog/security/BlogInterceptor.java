@@ -26,7 +26,25 @@ public class BlogInterceptor extends HandlerInterceptorAdapter {
 
 		blogVo = blogService.getBlog(); // 비어있을때 db에서 값을 받아옴(필드값 다 넣어줌)
 		sc.setAttribute("blogVo", blogVo); // siteVo 객체 셋팅
-		// 6. 인증 확인!!!->controller의 handler(method)실행
+		
+//		//1. handler 종류 확인
+//		if(handler instanceof HandlerMethod ==false) {
+//			return true;
+//		}
+//		//2. casting
+//		HandlerMethod handlerMethod=(HandlerMethod)handler;
+//		Auth auth=handlerMethod.getMethodAnnotation(Auth.class);
+//		if(auth == null) {
+//			return true; //true면 그냥 진행됨
+//		}
+//		
+//		HttpSession session=request.getSession();
+//		UserVo authUser=(UserVo)session.getAttribute("authUser");
+//		if(authUser==null||authUser.getId().equals(blogVo.getUser_id())==false) {
+//			response.sendRedirect(request.getContextPath()+"/user/login");
+//			return false;
+//		}	// 6. 인증 확인!!!->controller의 handler(method)실행
+//	
 		return true;
 	}
 
