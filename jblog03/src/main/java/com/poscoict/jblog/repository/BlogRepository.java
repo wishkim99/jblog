@@ -31,7 +31,7 @@ public class BlogRepository {
 	public boolean insert(String id) { //user의 id를 받아옴
 		Map<String, String> map = new HashMap<>();
 		map.put("user_id", id);
-		map.put("logo", "/images/2021027540136.jpg");
+		map.put("logo", "/images/original.jpg");
 		map.put("title",id+"의 블로그");
 		return 1==sqlSession.insert("blog.insert", map);
 	}

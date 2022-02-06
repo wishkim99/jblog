@@ -1,5 +1,7 @@
 package com.poscoict.jblog.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +18,14 @@ public class CategoryService {
 		categoryRepository.insert(id);
 	}
 
-	public CategoryVo getCategory() {
-		return categoryRepository.findAll();
+	public CategoryVo getCategory(String id) {
+		return categoryRepository.findById(id);
 	}
+
+	public List<CategoryVo> getCategoryList() {
+		return categoryRepository.findAllList();
+	}
+
 
 //	public void insert(UserVo userVo) {
 //		categoryRepository.insert(userVo);

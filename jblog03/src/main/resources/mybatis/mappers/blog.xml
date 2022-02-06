@@ -8,9 +8,9 @@
 				]]>
 	</select>
 
-		<select id="findById" parameterType="long" resultType="blogvo">
+		<select id="findById" parameterType="string" resultType="blogvo">
 		<![CDATA[
-		  select title, logo from blog where user_id=#{user_id}
+		  select title, logo, user_id from blog where user_id=#{user_id}
 		]]>
 	</select>
 	

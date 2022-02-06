@@ -9,6 +9,12 @@
 				]]>
 	</select>
 	
+	<select id="findAllList"  resultType="categoryvo">
+				<![CDATA[
+				   select no, name, description, blog_id from category  
+				]]>
+	</select>
+	
 	<select id="findById" parameterType="string" resultType="categoryvo">
 		<![CDATA[
 		 select no, name, description, blog_id from category where blog_id=#{id }
@@ -23,5 +29,12 @@
 		values (null, #{name}, #{description}, #{blog_id})
 		]]>
 	</insert>
+	
+	<delete id="delete" parameterType="map">
+		<![CDATA[
+		 delete from category where no=#{no}
+		]]>
+
+	</delete>
 			
 </mapper>

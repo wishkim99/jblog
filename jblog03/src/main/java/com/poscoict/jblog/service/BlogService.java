@@ -15,15 +15,12 @@ public class BlogService {
 		blogRepository.insert(id);
 	}
 
-	public BlogVo getBlog() {
+	public BlogVo getBlog(String id) {
 		// TODO Auto-generated method stub
-		return blogRepository.findAll();
+		return blogRepository.findById(id);
 	}
 
 	public boolean update(BlogVo blogVo) {
 		return blogRepository.update(blogVo);
 	}
-
-
-	
 }
