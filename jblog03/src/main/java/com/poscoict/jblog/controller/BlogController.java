@@ -85,5 +85,14 @@ public class BlogController {
 		model.addAttribute("list", list);
 		return "blog/blog-admin-category";
 	}	
+	
+	//카테고리 삭제
+	@Auth(id=true)
+	@RequestMapping(value="/category/delete/{no}")
+	public String delete(@PathVariable("no") Long no, Model model) {
+		model.addAttribute("no", no); //객체를 넘겨서 JSP에서 사용(이걸 해줘야 삭제됨,,,)
+		categoryService.deleteCategory(no);
+		return "redirect:/{user_id}/admin/category";
+	}
 
 }

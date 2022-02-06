@@ -34,5 +34,11 @@ public class CategoryRepository {
 		return sqlSession.selectList("category.findAllList");
 	}
 
+	public int deleteCategory(Long no) {
+		Map<String, Object> map = new HashMap<>(); // object는 string, long다 받음
+		map.put("no", no); 
+		return sqlSession.delete("category.deleteCategory", map);
+	}
+
 	
 }

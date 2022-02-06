@@ -20,13 +20,6 @@ public class BlogRepository {
 		return sqlSession.selectOne("blog.findById", id);
 	}
 
-
-	public boolean insert(UserVo userVo) {
-		int count = sqlSession.insert("user.insert", userVo);
-		return count == 1;
-	}
-
-
 	//BlogService의 16번째 코드(blogRepository.insert(id)로 불려짐
 	public boolean insert(String id) { //user의 id를 받아옴
 		Map<String, String> map = new HashMap<>();
@@ -46,7 +39,5 @@ public class BlogRepository {
 	public boolean update(BlogVo blogVo) {
 		int count = sqlSession.update("blog.update", blogVo);
 		return count == 1;
-	}
-
-	
+	}	
 }

@@ -48,11 +48,12 @@
 					<c:set var="count" value="${fn:length(list) }"/>
 					<c:forEach items="${list }" var="vo" varStatus="status">
 								<tr>
-									<td>[${count-status.index }]</td>
+									<td>${count-status.index }</td>
 									<td>${vo.name }</td>
+									<td>${count }</td>
 									<td>${vo.description }</td>
-									<td>포스트수</td>
-									<td><a href="${pageContext.request.contextPath }/category/delete/${vo.no }">삭제</a></td>
+									<td><a href="${pageContext.request.contextPath }/${blogVo.user_id}/category/delete/${vo.no }">
+									<img src="${pageContext.request.contextPath }/assets/images/delete.jpg"></a></td>
 								</tr>				
 					</c:forEach>
 					</tr>					  

@@ -2,18 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="blog">
 
-	<select id="findAll"  resultType="blogvo">
-				<![CDATA[
-				   select title, logo, user_id from blog  
-				]]>
-	</select>
-
 		<select id="findById" parameterType="string" resultType="blogvo">
 		<![CDATA[
 		  select title, logo, user_id from blog where user_id=#{user_id}
 		]]>
 	</select>
-	
+
 		<insert id="insert" parameterType="blogvo">
 		<![CDATA[
 		insert into blog value(#{title},#{logo},#{user_id});

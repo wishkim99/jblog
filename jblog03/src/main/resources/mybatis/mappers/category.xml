@@ -3,9 +3,9 @@
 
 <mapper namespace="category">
 
-	<select id="findAll"  resultType="categoryvo">
+	<select id="count" parameterType="string" resultType="categoryvo">
 				<![CDATA[
-				   select no, name, description, blog_id from category  
+				   select count(*) from category where blog_id=#{blog_id} and name=#{name}
 				]]>
 	</select>
 	
@@ -30,7 +30,7 @@
 		]]>
 	</insert>
 	
-	<delete id="delete" parameterType="map">
+	<delete id="deleteCategory" parameterType="map">
 		<![CDATA[
 		 delete from category where no=#{no}
 		]]>

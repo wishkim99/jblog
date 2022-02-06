@@ -26,9 +26,14 @@ public class CategoryService {
 		return categoryRepository.findAllList();
 	}
 
+	public int deleteCategory(Long no) {
+		return categoryRepository.deleteCategory(no);
+		
+	}
 
-//	public void insert(UserVo userVo) {
-//		categoryRepository.insert(userVo);
+
+//	public CategoryVo getCntCategory(String name,String id) {
+//		return categoryRepository.cntCategory(name, id);
 //	}
 
 	
