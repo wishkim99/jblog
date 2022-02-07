@@ -7,6 +7,7 @@ import javax.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ import com.poscoict.jblog.service.CategoryService;
 import com.poscoict.jblog.service.FileUploadService;
 import com.poscoict.jblog.vo.BlogVo;
 import com.poscoict.jblog.vo.CategoryVo;
+import com.poscoict.jblog.vo.UserVo;
 
 
 @Controller
@@ -92,6 +94,18 @@ public class BlogController {
 	public String delete(@PathVariable("no") Long no, Model model) {
 		model.addAttribute("no", no); //객체를 넘겨서 JSP에서 사용(이걸 해줘야 삭제됨,,,)
 		categoryService.deleteCategory(no);
+		return "redirect:/{user_id}/admin/category";
+	}
+	
+	@Auth(id=true)
+	@RequestMapping(value="/category/add", method=RequestMethod.POST)
+	//@Valid UserVo userVo에서 가운데 UserVo에 상관있음(객체 타입의 클래스 이름의 맨 앞을 소문자로만 해서 쓰면 됨)
+	public String add(CategoryVo vo, BlogVo blogVo) { 
+		//블로그아이디 자리 채움
+		vo.setBlog_id(blogVo.getUser_id()); //blogVo의 user_id의 값을 못받아왔으므로 null이 되지 않게 받아옴
+		
+		categoryService.add(vo);
+		
 		return "redirect:/{user_id}/admin/category";
 	}
 

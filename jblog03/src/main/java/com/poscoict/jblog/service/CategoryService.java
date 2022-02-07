@@ -31,6 +31,11 @@ public class CategoryService {
 		
 	}
 
+	public void add(CategoryVo vo) {
+		categoryRepository.add(vo);
+		
+	}
+
 
 //	public CategoryVo getCntCategory(String name,String id) {
 //		return categoryRepository.cntCategory(name, id);

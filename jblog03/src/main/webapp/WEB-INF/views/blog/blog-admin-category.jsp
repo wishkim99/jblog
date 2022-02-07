@@ -48,7 +48,7 @@
 					<c:set var="count" value="${fn:length(list) }"/>
 					<c:forEach items="${list }" var="vo" varStatus="status">
 								<tr>
-									<td>${count-status.index }</td>
+									<td>${status.index+1 }</td>
 									<td>${vo.name }</td>
 									<td>${count }</td>
 									<td>${vo.description }</td>
@@ -58,7 +58,8 @@
 					</c:forEach>
 					</tr>					  
 				</table>
-      	
+      	<form id="update-form" method="post" action="${pageContext.request.contextPath }/${blogVo.user_id}/category/add">
+      			<input type='hidden' name='blog_id' value="${categoryVo.blog_id}">
       			<h4 class="n-c">새로운 카테고리 추가</h4>
 		      	<table id="admin-cat-add">
 		      		<tr>
@@ -67,13 +68,14 @@
 		      		</tr>
 		      		<tr>
 		      			<td class="t">설명</td>
-		      			<td><input type="text" name="desc"></td>
+		      			<td><input type="text" name="description"></td>
 		      		</tr>
 		      		<tr>
 		      			<td class="s">&nbsp;</td>
 		      			<td><input type="submit" value="카테고리 추가"></td>
 		      		</tr>      		      		
 		      	</table> 
+		      	</form>
 			</div>
 		</div>
 		<div id="footer">

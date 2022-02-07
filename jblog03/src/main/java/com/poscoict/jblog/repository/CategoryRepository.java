@@ -40,5 +40,10 @@ public class CategoryRepository {
 		return sqlSession.delete("category.deleteCategory", map);
 	}
 
+	public boolean add(CategoryVo vo) {
+		int count = sqlSession.insert("category.insert", vo);
+		return count == 1;
+	}
+
 	
 }
