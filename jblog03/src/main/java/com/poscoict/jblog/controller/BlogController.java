@@ -82,7 +82,7 @@ public class BlogController {
 		HttpSession session = request.getSession();
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 		if (!authUser.getId().equals(blogVo.getUser_id())) {
-			return "redirect:/{userId}";
+			return "redirect:/{user_id}";
 		}
 		String url = fileUploadService.restore(multipartFile);
 		blogVo.setLogo(url);
@@ -101,7 +101,7 @@ public class BlogController {
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 		
 		if (!authUser.getId().equals(blogVo.getUser_id())) {
-			return "redirect:/{userId}";
+			return "redirect:/{user_id}";
 		}
 		blogVo = blogService.getBlog(user_id);
 		model.addAttribute("blogVo", blogVo); // jsp에서 사용하기 위함
@@ -128,7 +128,7 @@ public class BlogController {
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 		
 		if (!authUser.getId().equals(blogVo.getUser_id())) {
-			return "redirect:/{userId}";
+			return "redirect:/{user_id}";
 		}
 		// 블로그아이디 자리 채움
 		vo.setBlog_id(blogVo.getUser_id()); // blogVo의 user_id의 값을 못받아왔으므로 null이 되지 않게 받아옴
@@ -146,7 +146,7 @@ public class BlogController {
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 		
 		if (!authUser.getId().equals(blogVo.getUser_id())) {
-			return "redirect:/{userId}";
+			return "redirect:/{user_id}";
 		}
 		
 		blogVo = blogService.getBlog(user_id);
