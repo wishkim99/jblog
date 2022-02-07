@@ -38,7 +38,7 @@
 			      			<td class="t">제목</td>
 			      			<td>
 			      				<input type="text" size="60" name="title">
-				      			<select name="category">
+				      			<select name="categoryNo">
 					      			<c:forEach items="${list }" var="categoryvo" varStatus="status">
 					      				<option value="${categoryvo.no}">${categoryvo.name}</option>				      				
 					      			</c:forEach>
@@ -47,7 +47,7 @@
 			      		</tr>
 			      		<tr>
 			      			<td class="t">내용</td>
-			      			<td><textarea name="content"></textarea></td>
+			      			<td><textarea name="contents"></textarea></td>
 			      		</tr>
 			      		<tr>
 			      			<td>&nbsp;</td>

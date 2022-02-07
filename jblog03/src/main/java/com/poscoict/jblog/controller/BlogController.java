@@ -49,6 +49,9 @@ public class BlogController {
 	@RequestMapping("")
 	public String index(@PathVariable("user_id") String user_id, Model model, BlogVo vo) {
 		// ServletContext 객체는 모든 서블릿이 공유하는 객체
+		List<PostVo> list = postService.getPostList(user_id);
+		model.addAttribute("list", list);
+		
 		BlogVo blogVo = blogService.getBlog(user_id);
 		model.addAttribute("blogVo", blogVo);
 		System.out.println("================================" + blogVo);
@@ -78,7 +81,8 @@ public class BlogController {
 	@Auth // id가 있을 경우만 blog/admin 접속
 	@RequestMapping(value = "/admin/basic", method = RequestMethod.POST)
 	// BlogVo가운데 UserVo에 상관있음(객체 타입의 클래스 이름의 맨 앞을 소문자로만 해서 쓰면 됨)
-	public String update(HttpServletRequest request, HttpServletResponse response, @ModelAttribute BlogVo blogVo, @RequestParam(value = "upload-file") MultipartFile multipartFile) { // join.jsp안에서 사용
+	public String update(HttpServletRequest request, HttpServletResponse response, @ModelAttribute BlogVo blogVo,
+			@RequestParam(value = "upload-file") MultipartFile multipartFile) { // join.jsp안에서 사용
 		HttpSession session = request.getSession();
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 		if (!authUser.getId().equals(blogVo.getUser_id())) {
@@ -96,17 +100,18 @@ public class BlogController {
 	@Auth // id가 있을 경우만 blog/admin 접속
 	@RequestMapping(value = "/admin/category")
 	// jsp에서 여기로 보내서 kwd 실행-> 받아서 BoardService로 이동
-	public String category(HttpServletRequest request, HttpServletResponse response, BlogVo blogVo, @PathVariable("user_id") String user_id, Model model) {
+	public String category(HttpServletRequest request, HttpServletResponse response, BlogVo blogVo,
+			@PathVariable("user_id") String user_id, Model model) {
 		HttpSession session = request.getSession();
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		
+
 		if (!authUser.getId().equals(blogVo.getUser_id())) {
 			return "redirect:/{user_id}";
 		}
 		blogVo = blogService.getBlog(user_id);
 		model.addAttribute("blogVo", blogVo); // jsp에서 사용하기 위함
 
-		List<CategoryVo> list = categoryService.getCategoryList();
+		List<CategoryVo> list = categoryService.getCategoryList(user_id);
 		model.addAttribute("list", list);
 		return "blog/blog-admin-category";
 	}
@@ -126,7 +131,7 @@ public class BlogController {
 	public String add(HttpServletRequest request, HttpServletResponse response, CategoryVo vo, BlogVo blogVo) {
 		HttpSession session = request.getSession();
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		
+
 		if (!authUser.getId().equals(blogVo.getUser_id())) {
 			return "redirect:/{user_id}";
 		}
@@ -141,32 +146,34 @@ public class BlogController {
 	// 글쓰기
 	@Auth
 	@RequestMapping(value = "/admin/write", method = RequestMethod.GET) // 먼저 form으로 가야함
-	public String add(HttpServletRequest request, HttpServletResponse response, @PathVariable("user_id") String user_id, Model model, BlogVo blogVo) {
+	public String add(HttpServletRequest request, HttpServletResponse response, @PathVariable("user_id") String user_id,
+			Model model, BlogVo blogVo) {
 		HttpSession session = request.getSession();
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		
+
 		if (!authUser.getId().equals(blogVo.getUser_id())) {
 			return "redirect:/{user_id}";
 		}
-		
+
 		blogVo = blogService.getBlog(user_id);
 		model.addAttribute("blogVo", blogVo);
-		List<CategoryVo> list = categoryService.getCategoryList();
+		List<CategoryVo> list = categoryService.getCategoryList(user_id);
 		model.addAttribute("list", list);
 		return "blog/blog-admin-write";
 	}
 
 	@Auth
 	@RequestMapping(value = "/admin/write", method = RequestMethod.POST) // 가서 write수행
-	public String add(@PathVariable("user_id") String user_id, PostVo vo, Model model) {
+	public String add(@PathVariable("user_id") String user_id, PostVo vo, CategoryVo categoryvo, Long categoryNo,
+			Model model) {
 		BlogVo blogVo = blogService.getBlog(user_id);
 		model.addAttribute("blogVo", blogVo);
 
-		List<CategoryVo> list = categoryService.getCategoryList();
+		List<CategoryVo> list = categoryService.getCategoryList(user_id);
 		model.addAttribute("list", list);
-
+		vo.setCategory_no(categoryNo);
 		postService.addPost(vo);
-		return "redirect:/{user_id}/admin/write";
+		return "redirect:/{user_id}";
 
 	}
 

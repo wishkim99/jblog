@@ -18,4 +18,8 @@ public class PostRepository {
 		int count = sqlSession.insert("post.insert", vo);
 		return count == 1;
 	}
+
+		public List<PostVo> findByCategoryNo(String id) {
+			return sqlSession.selectList("post.findByCategoryNo", id);
+		}
 }
