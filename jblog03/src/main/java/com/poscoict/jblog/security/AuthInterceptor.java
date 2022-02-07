@@ -62,22 +62,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 			return false;
 		}
 		
-		ServletContext sc = request.getServletContext();
-		BlogVo blogVo = (BlogVo) sc.getAttribute("blogVo"); // blogVo이름의 객체를 불러옴
-		// String userId=blogVo.getUser_id();
-		if (blogVo != null) {
-			blogVo = blogService.getBlog(blogVo.getUser_id());
-			if (authUser.getId().equals(blogVo.getUser_id())) {
-				System.out.println("dkdkdkdkdkdkdkdkkdkkdd" + blogVo.getUser_id());
-				return true;
-			}
-
-			if (authUser.getId().equals(blogVo.getUser_id()) == false) {
-				response.sendRedirect(request.getContextPath() + "/user/login");
-				return false;
-			} // 6. 인증 확인!!!->controller의 handler(method)실행
-		}
-		// 6. 인증 확인!!!->controller의 handler(method)실행
+//		// 6. 인증 확인!!!->controller의 handler(method)실행
 		return true;
 	}
 }

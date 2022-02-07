@@ -8,17 +8,18 @@
 				]]>
 	</select>
 
-	<select id="findById" parameterType="long" resultType="postvo">
+	<select id="findByCategoryNo" parameterType="long" resultType="postvo">
 		<![CDATA[
-		  select title, logo from post where user_id=#{user_id}
+		select no, title, contents, date_format(reg_date,'%Y/%m/%d') as regDate, category_no as categoryNo from post 
+		where category_no = #{category_no} order by reg_date desc
 		]]>
 	</select>
 
 	<insert id="insert" parameterType="postvo">
 		<![CDATA[
 		insert 
-		   into user
-		values (null, #{title }, #{contents}, #{password }, now(), #{category_no})
+		   into post
+		values (null, #{title }, #{contents}, now(), #{category_no})
 		]]>
 	</insert>
 
@@ -34,12 +35,7 @@
 		#{no} and category_no = #{categoryNo}
 	</delete>
 	
-	<select id="findByCategoryNo" parameterType="long"
-		resultType="postvo">
-		select no, title, contents, date_format(reg_date,
-		'%Y/%m/%d') as regDate, category_no as categoryNo from post where
-		category_no = #{categoryNo} order by reg_date desc
-	</select>
+
 	
 	<select id="findByNoAndCategoryNo" parameterType="map"
 		resultType="postvo">

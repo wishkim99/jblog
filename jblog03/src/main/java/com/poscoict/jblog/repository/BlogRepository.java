@@ -1,6 +1,7 @@
 package com.poscoict.jblog.repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -8,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.poscoict.jblog.vo.BlogVo;
-import com.poscoict.jblog.vo.UserVo;
+
 
 @Repository
 public class BlogRepository {
@@ -39,5 +40,7 @@ public class BlogRepository {
 	public boolean update(BlogVo blogVo) {
 		int count = sqlSession.update("blog.update", blogVo);
 		return count == 1;
-	}	
+	}
+
+
 }

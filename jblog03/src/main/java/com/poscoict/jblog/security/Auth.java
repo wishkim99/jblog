@@ -12,6 +12,6 @@ import java.lang.annotation.Target;
 public @interface Auth {
 //	public String values() default "USER";
 	
-	public boolean id() default false;
+//	public boolean id() default false;
 //	public boolean test() default false;
 }

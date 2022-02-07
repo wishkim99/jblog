@@ -26,8 +26,8 @@ public class CategoryRepository {
 		
 	}
 
-	public CategoryVo findById(String id) { //admin/basic에서 사용
-		return sqlSession.selectOne("category.findById", id);
+	public List<CategoryVo> findById(String id) { //admin/basic에서 사용
+		return sqlSession.selectList("category.findById", id);
 	}
 	
 	public List<CategoryVo> findAllList() { //admin/category에서 사용

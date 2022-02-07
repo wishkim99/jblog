@@ -1,10 +1,13 @@
 package com.poscoict.jblog.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.poscoict.jblog.repository.BlogRepository;
 import com.poscoict.jblog.vo.BlogVo;
+import com.poscoict.jblog.vo.CategoryVo;
 
 @Service
 public class BlogService {
@@ -20,6 +23,7 @@ public class BlogService {
 		return blogRepository.findById(id);
 	}
 
+	
 	public boolean update(BlogVo blogVo) {
 		return blogRepository.update(blogVo);
 	}

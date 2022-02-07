@@ -32,10 +32,10 @@
 			<bean class="com.poscoict.jblog.security.LogoutInterceptor"/>
 		</mvc:interceptor>
 		
-			<mvc:interceptor>
-			<mvc:mapping path="/**" />
-			<bean class="com.poscoict.jblog.security.BlogInterceptor"/>
-		</mvc:interceptor>
+<!-- 			<mvc:interceptor> -->
+<!-- 			<mvc:mapping path="/**" /> -->
+<!-- 			<bean class="com.poscoict.jblog.security.BlogInterceptor"/> -->
+<!-- 		</mvc:interceptor> -->
 
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
