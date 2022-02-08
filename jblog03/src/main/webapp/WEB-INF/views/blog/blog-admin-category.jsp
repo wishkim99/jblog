@@ -50,10 +50,18 @@
 								<tr>
 									<td>${status.index+1 }</td>
 									<td>${vo.name }</td>
-									<td>${count }</td>
+									<td>${vo.post_cnt}</td>
 									<td>${vo.description }</td>
-									<td><a href="${pageContext.request.contextPath }/${blogVo.user_id}/category/delete/${vo.no }">
-									<img src="${pageContext.request.contextPath }/assets/images/delete.jpg"></a></td>
+									<td>
+							
+									
+										<c:if test="${vo.post_cnt eq 0}">
+											<c:if test="${fn:length(list) ne 1}">
+												<a href="${pageContext.request.contextPath }/${blogVo.user_id}/category/delete/${vo.no }">
+												<img src="${pageContext.request.contextPath }/assets/images/delete.jpg"></a>
+											</c:if>
+										</c:if>
+									</td>
 								</tr>				
 					</c:forEach>
 					</tr>					  

@@ -217,7 +217,6 @@ public class BlogController {
 
 		PostVo PostVo = postService.getLastPost(category_no); //카테고리 눌렀을시 해당 글목록 보기
 		model.addAttribute("LastPostVo", PostVo);
-		
 
 		return "blog/blog-main";
 	}

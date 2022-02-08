@@ -11,17 +11,16 @@
 	
 	<select id="findAllList"  resultType="categoryvo">
 				<![CDATA[
-				   select no, name, description, blog_id from category  
+				  SELECT c.no, c.name, c.description, c.blog_id, COUNT(p.no) AS post_cnt FROM category c LEFT JOIN post p ON c.no = p.category_no  GROUP BY c.no ORDER BY c.no ASC ; 
 				]]>
 	</select>
 	
 	<select id="findById" parameterType="string" resultType="categoryvo">
 		<![CDATA[
-		 select no, name, description, blog_id from category where blog_id=#{id }
+		 SELECT c.no, c.name, c.description, c.blog_id, COUNT(p.no) AS post_cnt FROM category c LEFT JOIN post p ON c.no = p.category_no WHERE blog_id = #{blog_id} GROUP BY c.no ORDER BY c.no ASC ;
 		]]>
 	</select>
 
-	
 	<insert id="insert" parameterType="categoryvo">
 		<![CDATA[
 	insert 
@@ -34,8 +33,6 @@
 		<![CDATA[
 		 delete from category where no=#{no}
 		]]>
-
 	</delete>
 
-			
 </mapper>
