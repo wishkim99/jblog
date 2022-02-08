@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +28,7 @@ import com.poscoict.jblog.vo.PostVo;
 import com.poscoict.jblog.vo.UserVo;
 
 @Controller
-@RequestMapping("/{user_id}")
+@RequestMapping("/{user_id:(?!assets)(?!images).*}")
 public class BlogController {
 	@Autowired
 	private ServletContext servletContext;
@@ -49,12 +48,20 @@ public class BlogController {
 	@RequestMapping("")
 	public String index(@PathVariable("user_id") String user_id, Model model, BlogVo vo) {
 		// ServletContext 객체는 모든 서블릿이 공유하는 객체
-		List<PostVo> list = postService.getPostList(user_id);
-		model.addAttribute("list", list);
-		
+		Long no = categoryService.getCategory(user_id).get(0).getNo(); // post의 category_no, get(0)은 순서대로 출력
+		List<PostVo> PostList = postService.getPostList(no);
+		model.addAttribute("plist", PostList);
+
+		List<CategoryVo> CategoryList = categoryService.getCategory(user_id);
+		model.addAttribute("list", CategoryList);
+
 		BlogVo blogVo = blogService.getBlog(user_id);
 		model.addAttribute("blogVo", blogVo);
-		System.out.println("================================" + blogVo);
+
+		PostVo LastPostVo = postService.getLastPost(CategoryList.get(0).getNo());
+		model.addAttribute("LastPostVo", LastPostVo);
+		model.addAttribute("category_no", no); // post의 category_no=category의 no
+
 		return "blog/blog-main";
 	}
 
@@ -174,7 +181,44 @@ public class BlogController {
 		vo.setCategory_no(categoryNo);
 		postService.addPost(vo);
 		return "redirect:/{user_id}";
-
 	}
 
+	// 카테고리의 글 내용 보기
+	@RequestMapping("/{category_no}/{post_no}")
+	public String main(@PathVariable("user_id") String user_id, @PathVariable("category_no") Long category_no,
+			@PathVariable("post_no") Long post_no, Model model) {
+		BlogVo blogVo = blogService.getBlog(user_id);
+		model.addAttribute("blogVo", blogVo);
+
+		List<CategoryVo> CategoryList = categoryService.getCategory(user_id);
+		model.addAttribute("list", CategoryList);
+
+		List<PostVo> PostList = postService.getPostList(category_no);
+		model.addAttribute("plist", PostList);
+
+		PostVo postVo = postService.getPostContents(post_no, category_no);
+		model.addAttribute("selectedPostVo", postVo);
+
+		return "blog/blog-main";
+	}
+
+	// 카테고리의 글 내용 보기
+	@RequestMapping("/{category_no}")
+	public String categoryList(@PathVariable("user_id") String user_id, @PathVariable("category_no") Long category_no,
+			Model model) {
+		BlogVo blogVo = blogService.getBlog(user_id);
+		model.addAttribute("blogVo", blogVo);
+
+		List<CategoryVo> CategoryList = categoryService.getCategory(user_id); //오른쪽 화면 카테고리 리스트들
+		model.addAttribute("list", CategoryList);
+
+		List<PostVo> PostList = postService.getPostList(category_no); //가운데 화면 카테고리별 글 목록 리스트들
+		model.addAttribute("plist", PostList);
+
+		PostVo PostVo = postService.getLastPost(category_no); //카테고리 눌렀을시 해당 글목록 보기
+		model.addAttribute("LastPostVo", PostVo);
+		
+
+		return "blog/blog-main";
+	}
 }

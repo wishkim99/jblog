@@ -8,9 +8,10 @@
 				]]>
 	</select>
 
-	<select id="findByCategoryNo" parameterType="long" resultType="postvo">
+	<select id="findByCategoryNo" parameterType="long"
+		resultType="postvo">
 		<![CDATA[
-		select no, title, contents, date_format(reg_date,'%Y/%m/%d'), category_no from post 
+		select no, title, contents, date_format(reg_date,'%Y/%m/%d') as reg_date, category_no from post 
 		where category_no = #{category_no} order by reg_date desc
 		]]>
 	</select>
@@ -23,32 +24,27 @@
 		]]>
 	</insert>
 
-
-	<update id="update" parameterType="postvo">
-		update post set title =
-		#{title}, contents = #{contents} where no = #{no} and category_no =
-		#{categoryNo}
-	</update>
-	
-	<delete id="delete" parameterType="map">
-		delete from post where no =
-		#{no} and category_no = #{categoryNo}
-	</delete>
-	
-
-	
-	<select id="findByNoAndCategoryNo" parameterType="map"
+	<select id="findByPostNoAndCategoryNo" parameterType="map"
 		resultType="postvo">
-		select no, title, contents, date_format(reg_date,
-		'%Y/%m/%d') as regDate, category_no as categoryNo from post where no =
-		#{no} and category_no = #{categoryNo}
-	</select>
-	
-	<select id="findRecentPost" parameterType="long"
-		resultType="postvo">
-		select no, title, contents, date_format(reg_date,
-		'%Y/%m/%d') as regDate, category_no as categoryNo from post where
-		category_no = #{categoryNo} order by reg_date desc limit 1
+		<![CDATA[
+		select no, title, contents, date_format(reg_date,'%Y/%m/%d') as reg_date, category_no from post
+		 where no = #{post_no} and category_no = #{category_no}
+		]]>
 	</select>
 
+	<select id="findLastPost" parameterType="long"
+		resultType="postvo">
+		<![CDATA[
+		select no, title, contents, date_format(reg_date,'%Y/%m/%d') as reg_date, category_no from post 
+		where category_no = #{category_no} order by reg_date desc limit 1
+		]]>
+	</select>
+
+	<select id="findCategoryList" parameterType="long"
+		resultType="postvo">
+		<![CDATA[
+		select no, title, contents, date_format(reg_date,'%Y/%m/%d') as reg_date, category_no from post 
+		where category_no = #{category_no} order by reg_date 
+		]]>
+	</select>
 </mapper>

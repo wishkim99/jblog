@@ -1,6 +1,8 @@
 package com.poscoict.jblog.repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,22 @@ public class PostRepository {
 		return count == 1;
 	}
 
-		public List<PostVo> findByCategoryNo(String id) {
-			return sqlSession.selectList("post.findByCategoryNo", id);
+		public List<PostVo> findByCategoryNo(Long category_no) {
+			return sqlSession.selectList("post.findByCategoryNo", category_no);
+		}
+
+		public PostVo findByPostNoAndCategoryNo(Long post_no, Long category_no) {
+			Map<String, Long> map = new HashMap<>();
+			map.put("post_no", post_no);
+			map.put("category_no", category_no);
+			return sqlSession.selectOne("post.findByPostNoAndCategoryNo", map);
+		}
+
+		public PostVo findLastPost(Long category_no) {
+			return sqlSession.selectOne("post.findLastPost", category_no);
+		}
+
+		public List<PostVo> findCategoryList(Long category_no) {
+			return sqlSession.selectList("post.findCategoryList", category_no);
 		}
 }

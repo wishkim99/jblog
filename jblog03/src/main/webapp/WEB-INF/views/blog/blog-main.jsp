@@ -31,16 +31,22 @@
 		<div id="wrapper">
 			<div id="content">
 				<div class="blog-content">
-					<h4>${postvo.title }</h4>
+					<h4>${LastPostVo.title }</h4>
 				<p>
-						${postvo.contents }
+						${LastPostVo.contents }
+					<p>
+				</div>
+				<div class="blog-contents">
+					<h4>${selectedPostVo.title }</h4>
+				<p>
+						${selectedPostVo.contents }
 					<p>
 				</div>
 				<ul class="blog-list">
-					<c:forEach items = "${list}" var = "postvo" varStatus = "status">
+					<c:forEach items = "${plist}" var = "postVo" varStatus = "status">
 					<tr>
-						<li><a href="${pageContext.request.contextPath}/${blogvo.user_id}/${postvo.category_no}/${postvo.no}">${postvo.title}</a></li>
-						<li><span>${postvo.reg_date}</span></li>
+						<li><a href="${pageContext.request.contextPath}/${blogVo.user_id}/${postVo.category_no}/${postVo.no}">${postVo.title}</a></li>
+						<li><span>${postVo.reg_date}</span></li>
 					</tr>
 				</c:forEach>
 				</ul>
@@ -55,12 +61,9 @@
 
 		<div id="navigation">
 			<h2>카테고리</h2>
-			<ul>
-				<li><a href="">닥치고 스프링</a></li>
-				<li><a href="">스프링 스터디</a></li>
-				<li><a href="">스프링 프로젝트</a></li>
-				<li><a href="">기타</a></li>
-			</ul>
+			<c:forEach items="${list}" var="categoryVo" varStatus="status">
+			<li><a href="${pageContext.request.contextPath}/${blogVo.user_id}/${categoryVo.no }">${categoryVo.name }</a></li>
+		</c:forEach>
 		</div>
 		
 		<div id="footer">
