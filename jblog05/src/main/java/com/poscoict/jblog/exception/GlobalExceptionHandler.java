@@ -8,6 +8,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -20,6 +21,16 @@ public class GlobalExceptionHandler {
 		e.printStackTrace(new PrintWriter(errors));
 		System.out.println(errors.toString());
 		LOGGER.error(errors.toString());
+		System.out.println("======================================"+e);
+		if (e instanceof NoHandlerFoundException) {
+		
+			return "error/404";
+		}
+		
+		if(e instanceof IndexOutOfBoundsException){
+			return "error/404";
+		}
+		
 		//2. 사과페이지(HTML 응답, 정상 종료)
 		model.addAttribute("exception", errors.toString());
 		return "error/exception";

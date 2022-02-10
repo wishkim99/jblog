@@ -10,7 +10,7 @@ import com.poscoict.jblog.config.AppConfig;
 import com.poscoict.jblog.config.WebConfig;
 
 
-public class MySiteWebApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+public class JBlogWebApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
@@ -33,11 +33,10 @@ public class MySiteWebApplicationInitializer extends AbstractAnnotationConfigDis
 	}
 
 //!!!!과제
-//	@Override //DefaultServletHandler를 했기 때문에 절대 안먹힘
+	@Override //DefaultServletHandler를 했기 때문에 절대 안먹힘
+	protected void customizeRegistration(Dynamic registration) {
+		registration.setInitParameter("throwExceptionIfNoHandlerFound", "true"); //noHandler라고 되어있지만 Mvc.configurer에 handler 있음=> 따라 걍 404 에러 나옴 
+	}
 	//defaultServlet Handler: 메소드 설정 안됐을 시 Default Servlet으로 보냄
-//	protected void customizeRegistration(Dynamic registration) {
-//		registration.setInitParameter("throwExceptionIfNoHandlerFound", "true"); //noHandler라고 되어있지만 Mvc.configurer에 handler 있음=> 따라 걍 404 에러 나옴 
-//	}
-	
 
 }

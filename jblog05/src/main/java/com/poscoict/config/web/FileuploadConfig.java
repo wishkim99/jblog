@@ -13,9 +13,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 @PropertySource("classpath:com/poscoict/jblog/config/web/fileupload.properties")
 public class FileuploadConfig extends WebMvcConfigurerAdapter {
-	
+
 	@Autowired
 	private Environment env;
+
 	// Multipart Resolver
 	@Bean
 	public MultipartResolver multipartResolver() {
@@ -23,14 +24,16 @@ public class FileuploadConfig extends WebMvcConfigurerAdapter {
 		multipartResolver.setMaxUploadSize(env.getProperty("fileupload.maxUploadSize", Long.class));
 		multipartResolver.setMaxInMemorySize(env.getProperty("fileupload.maxInMemorySize", Integer.class));
 		multipartResolver.setDefaultEncoding(env.getProperty("fileupload.defaultEncoding"));
-	
+
 		return multipartResolver;
 	}
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry
-			.addResourceHandler(env.getProperty("fileupload.resourceMapping"))
-			.addResourceLocations("file:"+env.getProperty("fileupload.uploaLocation"));
+		
+		registry.addResourceHandler(env.getProperty("fileupload.resourceMapping"))
+				.addResourceLocations("file:" + env.getProperty("fileupload.uploadLocation"));
+		registry.addResourceHandler(env.getProperty("assets.assetsMapping"))
+		.addResourceLocations("classpath:" + env.getProperty("assets.assetsLocation"));
 	}
 }

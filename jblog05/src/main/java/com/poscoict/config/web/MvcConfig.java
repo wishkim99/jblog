@@ -25,11 +25,11 @@ public class MvcConfig extends WebMvcConfigurerAdapter { //override 쓰기위함
 		return viewResolver;
 	}
 	//Message Converter
-
-	@Override
-	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-		configurer.enable(); //defaultServlet을 이제 사용하겠다
-	}
+//customizeRegistration를 만듦
+//	@Override
+//	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+//		configurer.enable(); //defaultServlet을 이제 사용하겠다
+//	}
 	
 	//서블릿 컨테이너(tomcat)의 DefaultServlet 위임(delegate) Handler
 }
