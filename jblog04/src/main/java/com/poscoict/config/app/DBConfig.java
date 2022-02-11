@@ -18,7 +18,7 @@ public class DBConfig {
 	
 	// Connection Pool DataSource
 	@Bean
-	public DataSource dataSource() {
+	public DataSource dataSource() {//파일로 만듦
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
 		dataSource.setUrl(env.getProperty("jdbc.url"));

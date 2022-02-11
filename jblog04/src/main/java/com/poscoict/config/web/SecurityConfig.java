@@ -23,7 +23,7 @@ public class SecurityConfig extends WebMvcConfigurerAdapter {
 	}
 	
 	@Override
-	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) { //argumentResolvers 등록-> argumentResolvers는 AuthUser 사용히기위함
 		argumentResolvers.add(handlerMethodArgumentResolver());
 	}
 	
